@@ -3,7 +3,7 @@ import altair as alt
 import pandas as pd
 import streamlit as st
 
-from st_aggrid import AgGrid
+#from st_aggrid import AgGrid
 
 #import pandas_profiling
 #from streamlit_pandas_profiling import st_profile_report
@@ -12,7 +12,7 @@ from datetime import datetime,timedelta
 import pytz
 import re
 
-from germansentiment import SentimentModel
+#from germansentiment import SentimentModel
 
 st.set_page_config(layout="wide")
 
