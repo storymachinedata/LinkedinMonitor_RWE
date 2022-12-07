@@ -3,7 +3,7 @@ import altair as alt
 import pandas as pd
 import streamlit as st
 
-from st_aggrid import AgGrid
+#from st_aggrid import AgGrid
 
 import plotly.express as px
 
@@ -16,7 +16,7 @@ from datetime import datetime,timedelta
 import pytz
 import re
 
-from germansentiment import SentimentModel
+#from germansentiment import SentimentModel
 
 st.set_page_config(layout="wide")
 
