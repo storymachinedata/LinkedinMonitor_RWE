@@ -409,11 +409,13 @@ fig.update_layout(showlegend=False, plot_bgcolor='rgba(0,0,0,0)', width=600)
 #st.plotly_chart(fig)
 
 #st.subheader(f'Type of Outreach for each CEOs : last {int(number)} days')
+total = df5.groupby(['CEO','Activity']).size().unstack(fill_value=0)
 fig1 = px.bar(
 
-    df5,x="CEO",y="Activity",color = "Activity")
+    total,color = "Activity")
 
 fig1.update_layout(showlegend=True, plot_bgcolor='rgba(0,0,0,0)', width=550)
+fig1.update_yaxes(visible=False, showticklabels=True)
 
 #st.plotly_chart(fig1)
 
