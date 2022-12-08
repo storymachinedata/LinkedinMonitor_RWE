@@ -7,8 +7,6 @@ import streamlit as st
 
 import plotly.express as px
 
-from streamlit_option_menu import option_menu
-
 #import pandas_profiling
 #from streamlit_pandas_profiling import st_profile_report
 
@@ -38,24 +36,16 @@ with col2:
 
 st.sidebar.success("Choose Category")
 
-
-
-# 2. horizontal menu
-selected2 = option_menu(None, ["CEOs Outreach", "Individual CEO Analysis", "Sentiment Analysis", 'Keyword Monitor'], 
-    icons=['graph-up-arrow', 'bar-chart', "emoji-smile", 'search'], 
-    menu_icon="cast", default_index=0, orientation="horizontal")
+st.title('RWE: Andere CEOs Outreach Monitoring')
 
 st.image(
     "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/LinkedIn_logo_initials.png/640px-LinkedIn_logo_initials.png",
     width=100,
 )
-st.title('CEOs Outreach Monitoring in LinkedIn ')
-
-
 
 
 #with st.expander('Monitoring Posts of CEOs from LinkedIn everyday'):
-#st.success('Monitoring LinkedIn Activities everyday')
+st.success('Monitoring LinkedIn Activities everyday')
 
 my_bar = st.progress(0)
 
@@ -71,7 +61,7 @@ for percent_complete in range(100):
 
 #st.header('`streamlit_pandas_profiling`')
 
-st.header('RWE: Andere CEOs Posts last 12 Months')
+st.header('Andere CEOs Posts last 12 Months')
 
 
 
@@ -322,19 +312,34 @@ st.bar_chart(df12)
 # date_to_monitor = st.date_input('Choose a date to see the post that created after that',value=datetime.today() - timedelta(days=1))
 # st.write(date_to_monitor)
 
-number = st.number_input('Select the days you want to see the posts', min_value=1, max_value=360, value=2, step=1)
+col1, col2 = st.columns(2)
+
+with col1:
+   st.header("Select Time Range")
+   number = st.number_input('Select the days you want to see the posts', min_value=1, max_value=360, value=2, step=1)
+   df5 = df[df['date']>=(dt.datetime.now()-dt.timedelta(days=number))] #hours = 6,12, 24
+
+with col2:
+   st.header("Select CEOs")
+   CEO_options = df5['CEO'].unique().tolist()
+   CEO_select = st.multiselect('Select CEOs for Outreach Monitoring', CEO_options)
+   df5= df5[df5['CEO'].isin(CEO_select)]
+
+
+
+
 #st.write('The current number is ', number)
 
-st.header(f'Post from last {int(number)} days')
 
 
 
-df5 = df[df['date']>=(dt.datetime.now()-dt.timedelta(days=number))] #hours = 6,12, 24
 
 
-cols = ['CEO','postContent','postUrl','likeCount','commentCount','Total_Interactions','postDate','profileUrl', 'imgUrl','profileImg','type','action', 'Company','Activity']
-df5 = df5[cols]
-df5.sort_values(['postDate'], ascending=False, inplace=True)
+
+
+#cols = ['CEO','postContent','postUrl','likeCount','commentCount','Total_Interactions','postDate','profileUrl', 'imgUrl','profileImg','type','action', 'Company','Activity']
+#df5 = df5[cols]
+#df5.sort_values(['Total_Interactions'], ascending=False, inplace=True)
 
 
 #df5 = df5["imgUrl"].str.replace("<NA>","https://www.citypng.com/public/uploads/preview/download-horizontal-black-line-png-31631830482cvrhyz46le.png")
@@ -347,8 +352,8 @@ df5.rename(columns={'Total_Interactions': 'Total Interactions'}, inplace=True)
 
 df5 = df5.reset_index(drop=True)
 
-
-
+st.header('')
+st.header(f'Post from last {int(number)} days')
 
 if st.button(f'Show Data for past {int(number)} days'):
     st.write(df5)
@@ -407,8 +412,10 @@ fig = px.bar(
 fig.update_layout(showlegend=False, plot_bgcolor='rgba(0,0,0,0)', width=600)
 
 #st.plotly_chart(fig)
-
+#df5,x="CEO",y="Activity",color = "Activity",animation_frame="postDate", animation_group="CEO")
+#HOW TO ANIMATE PLOTLY https://www.youtube.com/watch?v=VZ_tS4F6P2A
 #st.subheader(f'Type of Outreach for each CEOs : last {int(number)} days')
+
 total = df5.groupby(['CEO','Activity']).size().unstack(fill_value=0)
 fig1 = px.bar(
 
@@ -416,7 +423,6 @@ fig1 = px.bar(
 
 fig1.update_layout(showlegend=True, plot_bgcolor='rgba(0,0,0,0)', width=550)
 fig1.update_yaxes(visible=False, showticklabels=True)
-
 #st.plotly_chart(fig1)
 
 col1, col2 = st.columns(2)
@@ -439,8 +445,6 @@ st.header('')
 #col1, col2, col3 = st.columns(3)
 ####################################################
 ## OUTREACH
-
-
 
 df_post = df5.loc[df5.Activity == "Post"]
 df_post = df_post.reset_index(drop=True)
@@ -486,30 +490,31 @@ with tab1:
             for i, c in frames_1.iterrows():
                 with thumbnails_1[i]:
 
-                     if not pd.isnull(c['profileImg']):
-                        st.image(c['profileImg'], width=150)
+                     
                      st.subheader(frames_1.CEO[i])
-                     st.write('Company & Industry:  ',c['Company']) #postType
-                    
+                     #st.write('Company & Industry:  ',c['Company']) #postType
+                     st.warning(c['action'])
+                     if not pd.isnull(c['imgUrl']):
+                        st.image(c['imgUrl'])
+                        st.write('Image from the Post  🗾')
                        
 
                      st.write('Post Content 📜')
                      st.info(c['postContent'])  #postContent
+                     st.write('Publish Date & Time 📆:         ',c['postDate']) #publishDate
                      
                      st.write('Type of Post 📨:  ',c['type']) #postType
                      st.write('Total Interactions 📈:  ',c['Total Interactions']) #totInteractions
                      st.write('Likes 👍:  ',c['likeCount']) #totInteractions
                      st.write('Comments 💬:  ',c['commentCount']) #totInteractions
-                     st.write('Action 📌:  ',c['action']) #totInteractions
+                     
                      #st.write('Activity 📌:  ',c['Activity']) #totInteractions
-                     st.write('Publish Date & Time 📆:         ',c['postDate']) #publishDate
+                     
                      with st.expander('Link to this Post 📮'):
                          st.write(c['postUrl']) #linktoPost
                      with st.expander('Link to  Profile 🔗'):
                          st.write(c['profileUrl']) #linktoProfile
-                     if not pd.isnull(c['imgUrl']):
-                        st.image(c['imgUrl'])
-                        st.write('Image from the Post  🗾')
+                     
                     
    else:
         
@@ -818,29 +823,29 @@ with tab8:
             for i, c in frames_1.iterrows():
                 with thumbnails_1[i]:
 
-                     if not pd.isnull(c['profileImg']):
-                        st.image(c['profileImg'], width=150)
                      st.subheader(frames_1.CEO[i])
-                     st.write('Company & Industry:  ',c['Company']) #postType
+                     #st.write('Company & Industry:  ',c['Company']) #postType
                      st.warning(c['action'])
+                     if not pd.isnull(c['imgUrl']):
+                        st.image(c['imgUrl'])
+                        st.write('Image from the Post  🗾')
                        
 
                      st.write('Post Content 📜')
                      st.info(c['postContent'])  #postContent
+                     st.write('Publish Date & Time 📆:         ',c['postDate']) #publishDate
+                     
                      st.write('Type of Post 📨:  ',c['type']) #postType
                      st.write('Total Interactions 📈:  ',c['Total Interactions']) #totInteractions
                      st.write('Likes 👍:  ',c['likeCount']) #totInteractions
                      st.write('Comments 💬:  ',c['commentCount']) #totInteractions
-                     #st.write('Action 📌:  ',c['action']) #totInteractions
+                     
                      #st.write('Activity 📌:  ',c['Activity']) #totInteractions
-                     st.write('Publish Date & Time 📆:         ',c['postDate']) #publishDate
+                     
                      with st.expander('Link to this Post 📮'):
                          st.write(c['postUrl']) #linktoPost
                      with st.expander('Link to  Profile 🔗'):
                          st.write(c['profileUrl']) #linktoProfile
-                     if not pd.isnull(c['imgUrl']):
-                        st.image(c['imgUrl'])
-                        st.write('Image from the Post  🗾')
                     
    else:
         
