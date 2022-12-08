@@ -166,7 +166,7 @@ with tab1:
 
    #df_all = df_all[df_all['date']>=(dt.datetime.now()-dt.timedelta(days=1))] #hours = 6,12, 24
    st.write(f'Total posts found in last Hours: ', df_all.shape[0])
-   st.subheader('Total Interaction getting in past hours in the day')
+   #st.subheader('Total Interaction getting in past hours in the day')
    #st.bar_chart(df_all, x='Hour', y='Total Interactions')
    fig = px.bar(
 
@@ -174,7 +174,7 @@ with tab1:
 
 
    fig.update_layout(showlegend=False, plot_bgcolor='rgba(0,0,0,0)')
-   st.plotly_chart(fig)
+   #st.plotly_chart(fig)
 
 
    st.header(f'Most Recent Posts')
