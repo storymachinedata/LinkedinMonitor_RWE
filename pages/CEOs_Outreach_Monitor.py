@@ -496,7 +496,7 @@ with tab1:
                      st.warning(c['action'])
                      if not pd.isnull(c['imgUrl']):
                         st.image(c['imgUrl'])
-                        st.write('Image from the Post  🗾')
+                        st.write('*Image from the Post')
                        
 
                      st.write('Post Content 📜')
@@ -828,7 +828,7 @@ with tab8:
                      st.warning(c['action'])
                      if not pd.isnull(c['imgUrl']):
                         st.image(c['imgUrl'])
-                        st.write('Image from the Post  🗾')
+                        st.write('*Image from the Post ')
                        
 
                      st.write('Post Content 📜')
