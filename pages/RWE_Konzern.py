@@ -36,7 +36,7 @@ with col2:
 
 st.sidebar.success("Choose Category")
 
-st.title('RWE: Andere CEOs Outreach Monitoring')
+st.title('RWE Konzern: CEOs Outreach Monitoring')
 
 st.image(
     "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/LinkedIn_logo_initials.png/640px-LinkedIn_logo_initials.png",
