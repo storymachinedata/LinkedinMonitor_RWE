@@ -294,20 +294,20 @@ df30['commentCount'] = df30['commentCount'].astype(int)
 df30['Total_Interactions'] = df30['Total_Interactions'].astype(int)
 
 if st.button('Show Data'):
-    AgGrid(df30, height=500, fit_columns_on_grid_load=True)
+    st.write(df30)
 
 #st.write(df30)
 st.write(f'Total Activities in last 12 Months: ', df30.shape[0])
 #df5 = df['date'].last('24h')
 
-st.subheader('Total Own Posts for each CEOs from last 12 Months')
+#st.subheader('Total Own Posts for each CEOs from last 12 Months')
 
 
 
 #st.write(df30.CEO.value_counts())
 df12 = df30.loc[df30.action == "Post"]
 df12 = df12['CEO'].value_counts()
-st.bar_chart(df12)
+#st.bar_chart(df12)
 
 # date_to_monitor = st.date_input('Choose a date to see the post that created after that',value=datetime.today() - timedelta(days=1))
 # st.write(date_to_monitor)
@@ -319,15 +319,15 @@ col1, col2 = st.columns(2)
 with col1:
    st.header("Select Time Range")
    
-   number = st.number_input('Select the days you want to see the posts', min_value=1, max_value=360, value=3, step=1)
+   number = st.number_input('Select the days you want to see the posts', min_value=1, max_value=360, value=1, step=1)
    if number:
             df5 = df[df['date']>=(dt.datetime.now()-dt.timedelta(days=number))] #hours = 6,12, 24
             st.success(f'Monitor Posts from last {int(number)} Days', icon="✅")
 
 with col2:
    st.header("Select CEOs for Monitor")
-   st.warning('Please choose selection below to proceed', icon="⚠️")
-   all = st.checkbox('Select all CEOs')
+   #st.warning('Please choose selection below to proceed', icon="⚠️")
+   all = st.checkbox('Select all CEOs' ,value = True)
 
    if all:
         
@@ -341,8 +341,6 @@ with col2:
         df5= df5[df5['CEO'].isin(CEO_select)]
         
         
-
-
 
 
 #st.write('The current number is ', number)
@@ -400,42 +398,47 @@ with col2:
 st.header('')
 st.header('')
 
+############### Tab ########################
+
+
+
+
 #################### GRAPH ###############################################
 
-fig = px.bar(
+# fig = px.bar(
 
-    df5,x="Total Interactions",y="CEO",color = "Activity", orientation='h')
-
-
-fig.update_layout(showlegend=False, plot_bgcolor='rgba(0,0,0,0)', width=500)
-
-#st.plotly_chart(fig)
-#df5,x="CEO",y="Activity",color = "Activity",animation_frame="postDate", animation_group="CEO")
-#HOW TO ANIMATE PLOTLY https://www.youtube.com/watch?v=VZ_tS4F6P2A
-#st.subheader(f'Type of Outreach for each CEOs : last {int(number)} days')
-
-total = df5.groupby(['CEO','Activity']).size().unstack(fill_value=0)
-fig1 = px.bar(
-
-    total,color = "Activity")
-
-fig1.update_layout(showlegend=True, plot_bgcolor='rgba(0,0,0,0)', width=500)
-fig1.update_yaxes(visible=False, showticklabels=True)
-#st.plotly_chart(fig1)
-
-col1, col2 = st.columns(2)
-
-with col1:
-   st.subheader(f'Total Interactions: past {int(number)} days')
-   st.plotly_chart(fig)
-
-with col2:
-   st.subheader(f'Type of Outreach: past {int(number)} days')
-   st.plotly_chart(fig1)
+#     df5,x="Total Interactions",y="CEO",color = "Activity", orientation='h')
 
 
+# fig.update_layout(showlegend=False, plot_bgcolor='rgba(0,0,0,0)', width=500)
 
-st.header('')
+# #st.plotly_chart(fig)
+# #df5,x="CEO",y="Activity",color = "Activity",animation_frame="postDate", animation_group="CEO")
+# #HOW TO ANIMATE PLOTLY https://www.youtube.com/watch?v=VZ_tS4F6P2A
+# #st.subheader(f'Type of Outreach for each CEOs : last {int(number)} days')
+
+# total = df5.groupby(['CEO','Activity']).size().unstack(fill_value=0)
+# fig1 = px.bar(
+
+#     total,color = "Activity")
+
+# fig1.update_layout(showlegend=True, plot_bgcolor='rgba(0,0,0,0)', width=500)
+# fig1.update_yaxes(visible=False, showticklabels=True)
+# #st.plotly_chart(fig1)
+
+# # col1, col2 = st.columns(2)
+
+# # with col1:
+# #    st.subheader(f'Total Interactions: past {int(number)} days')
+# #    st.plotly_chart(fig)
+
+# # with col2:
+# #    st.subheader(f'Type of Outreach: past {int(number)} days')
+# #    st.plotly_chart(fig1)
+
+
+
+#st.header('')
 
 
 #defining three side-by-side columns
