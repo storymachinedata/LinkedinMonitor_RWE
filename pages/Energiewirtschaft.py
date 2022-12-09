@@ -36,7 +36,7 @@ with col2:
 
 st.sidebar.success("Choose Category")
 
-st.title('RWE: Energiewirtschaft CEOs Outreach Monitoring')
+st.title('RWE:Energiewirtschaft/Influencer Energie CEOs Outreach Monitoring')
 
 st.image(
     "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/LinkedIn_logo_initials.png/640px-LinkedIn_logo_initials.png",
@@ -65,7 +65,7 @@ st.header('Andere CEOs Posts last 12 Months')
 
 
 
-df =pd.read_csv('https://phantombuster.s3.amazonaws.com/UhrenaxfEnY/srSVWXMBkcs3wTYIbYOPXA/AndereCEOs_outreach.csv')
+df =pd.read_csv('https://phantombuster.s3.amazonaws.com/UhrenaxfEnY/YJvJADn9fiMUjJP4CVyEBA/influencer_energie_RWE_monitor.csv')
 #df2 =pd.read_csv('https://phantombuster.s3.amazonaws.com/UhrenaxfEnY/Vx2c6OJZ59781jp9zKPViw/Andere_CEOs_2.csv')
 #df3 =pd.read_csv('https://phantombuster.s3.amazonaws.com/UhrenaxfEnY/JUeq71McCykmR5ZrlZTJdQ/Andere_CEOs_3.csv')
 
@@ -76,8 +76,8 @@ df =pd.read_csv('https://phantombuster.s3.amazonaws.com/UhrenaxfEnY/srSVWXMBkcs3
 df = df.dropna(how='any', subset=['postContent'])
 
 
-df.drop(['viewCount', 'sharedJobUrl', 'error', 'repostCount'], axis=1, inplace=True)
-
+df.drop(['viewCount', 'error', 'repostCount'], axis=1, inplace=True)
+#, 'sharedJobUrl'
 
 #st.write(df.profileUrl.value_counts())
 
@@ -85,33 +85,21 @@ df.drop(['viewCount', 'sharedJobUrl', 'error', 'repostCount'], axis=1, inplace=T
 
 df['CEO']  = df['action']
 
-df.loc[df.profileUrl == "https://www.linkedin.com/in/assaadrazzouk/", "CEO"] = "Assaad Razzouk"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/markussteilemann/", "CEO"] = "Markus Steilemann"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/buschroland/", "CEO"] = "Roland Busch"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/bernardlooneybp/", "CEO"] = "Bernard Looney"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/ola-k%C3%A4llenius/", "CEO"] = "Ola Kaellenius"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/martenbunnemann/detail/recent-activity/shares/", "CEO"] = "Marten Bunnemann"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/jocheneickholt/recent-activity/", "CEO"] = "Jochen Eickholt"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/leo-birnbaum-885347b0/detail/recent-activity/", "CEO"] = "Leo Birnbaum"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/herbertdiess/", "CEO"] = "Herbert Diess"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/mike-crawley-a3308a2/recent-activity/shares/", "CEO"] = "Mike Crawley"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/miriam-teige-66117769/recent-activity/", "CEO"] = "Miriam Teige"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/werner-baumann/", "CEO"] = "Werner Baumann"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/katherina-reiche/detail/recent-activity/", "CEO"] = "Katherina Reiche"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/jeromepecresse/?originalSubdomain=fr", "CEO"] = "Jérôme Pécresse"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/marc-becker-3990826/", "CEO"] = "Marc Becker"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/richardlutzdb/", "CEO"] = "Dr. Richard Lutz"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/martin-brudermueller/detail/recent-activity/", "CEO"] = "Dr. Martin Brudermüller"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/hdsohn/recent-activity/shares/", "CEO"] = "Hans-Dieter Sohn"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/davidcarrascosafrancis/recent-activity/shares/", "CEO"] = "David Carrascosa"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/juan-gutierrez-sgre/recent-activity/", "CEO"] = "Juan Gutierrez"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/henrik-stiesdal-064a9374/recent-activity/", "CEO"] = "Henrik Stiesdal"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/hilde-merete-aasheim-b37b38203/recent-activity/shares/", "CEO"] = "Hilde Merete Aasheim"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/alistair-phillips-davies-14213871/recent-activity/", "CEO"] = "Alistair Phillips-Davies"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/annaborgvattenfall/", "CEO"] = "Anna Borg"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/giles-dickson-98607229/recent-activity/", "CEO"] = "Giles Dickson"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/jean-bernard-levy/", "CEO"] = "Jean-Bernard Lévy"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/florian-bieberbach/recent-activity/shares/", "CEO"] = "Florian Bieberbach"
+df.loc[df.profileUrl == "https://www.linkedin.com/in/siegfried-russwurm/detail/recent-activity/", "CEO"] = "Siegfried Russwurm"
+df.loc[df.profileUrl == "https://www.linkedin.com/in/fatih-birol/detail/recent-activity/", "CEO"] = "Fatih Birol"
+df.loc[df.profileUrl == "https://www.linkedin.com/company/bloombergnef/", "CEO"] = "BloombergNEF"
+df.loc[df.profileUrl == "https://www.linkedin.com/company/world-economic-forum/", "CEO"] = "World Economic Forum"
+df.loc[df.profileUrl == "https://www.linkedin.com/company/cdp-worldwide/", "CEO"] = "CDP"
+df.loc[df.profileUrl == "https://www.linkedin.com/in/dr-joachim-lang-1b202217a/detail/recent-activity/", "CEO"] = "Dr. Joachim Lang"
+df.loc[df.profileUrl == "https://www.linkedin.com/in/kerstin-andreae/detail/recent-activity/", "CEO"] = "Kerstin Andreae"
+df.loc[df.profileUrl == "https://www.linkedin.com/in/s%C3%B6nke-meschkat/detail/recent-activity/", "CEO"] = "Sönke Meschkat"
+df.loc[df.profileUrl == "https://www.linkedin.com/in/williamhgates/detail/recent-activity/", "CEO"] = "Bill Gates"
+df.loc[df.profileUrl == "https://www.linkedin.com/in/gerard-reid-62164b9/detail/recent-activity/", "CEO"] = "Gerard Reid"
+df.loc[df.profileUrl == "https://www.linkedin.com/in/alessandro-blasi-6579a66/detail/recent-activity/", "CEO"] = "Alessandro Blasi"
+df.loc[df.profileUrl == "https://www.linkedin.com/in/laurent-segalen-2b090a24/detail/recent-activity/", "CEO"] = "Laurent Segalen"
+df.loc[df.profileUrl == "https://www.linkedin.com/in/andreas-kuhlmann-91249579/detail/recent-activity/", "CEO"] = "Andreas Kuhlmann"
+df.loc[df.profileUrl == "https://www.linkedin.com/in/dan-mcgrail-4807bb2b/", "CEO"] = "Dan McGrail"
+
 
 
 
@@ -150,69 +138,6 @@ df['date'] =  pd.to_datetime(df['postDate'])
 
 df['Total_Interactions'] = df['likeCount'] + df['commentCount']
 
-
-df['profileImg']  = df['action']
-
-df.loc[df.profileUrl == "https://www.linkedin.com/in/assaadrazzouk/", "profileImg"] = "https://media-exp1.licdn.com/dms/image/C4D03AQHZCSQaliXdiQ/profile-displayphoto-shrink_800_800/0/1516255427468?e=2147483647&v=beta&t=eSxGSIqW9vW7rHx79J5Z7gcNrCyUGVtZEVr8-rDHh4E"
-
-df.loc[df.profileUrl == "https://www.linkedin.com/in/markussteilemann/", "profileImg"] = "https://media-exp1.licdn.com/dms/image/C4E03AQHXgF5NlZrRqQ/profile-displayphoto-shrink_400_400/0/1616592958472?e=1674086400&v=beta&t=04uxVnwfDbkTEjJAj0qy0-Le0KuSGUNLlR8ao2SqQWQ"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/buschroland/", "profileImg"] = "https://media-exp1.licdn.com/dms/image/C4D03AQHt7A5wyfZ62Q/profile-displayphoto-shrink_400_400/0/1649329185717?e=1674086400&v=beta&t=etoCOkPNa5G9Z8b8HJ-CQLRyjzgzlvLgy-VA-uODFT8"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/bernardlooneybp/", "profileImg"] = "https://media-exp1.licdn.com/dms/image/C4E03AQEYAcA6GHI1VQ/profile-displayphoto-shrink_400_400/0/1626105106123?e=1674086400&v=beta&t=ahiCRCiVckr2D3VhTDATY_2b9CuxJL5sfE6T427kU_g"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/ola-k%C3%A4llenius/", "profileImg"] = "https://media-exp1.licdn.com/dms/image/C4D03AQEmslz1nw9Xcg/profile-displayphoto-shrink_400_400/0/1643731137701?e=1674086400&v=beta&t=3M-JWsoXg7r0tHbJ7RNdb7a3q8puKcCw8FJUTBF8Hzg"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/martenbunnemann/detail/recent-activity/shares/", "profileImg"] = "https://media-exp1.licdn.com/dms/image/C4D03AQEEFMfjUbmLsA/profile-displayphoto-shrink_400_400/0/1585913949824?e=1674086400&v=beta&t=fMWpbCEnskPus45UOQB8tjK65seeUL5bgboR5iMVVdY"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/jocheneickholt/recent-activity/", "profileImg"] = "https://media-exp1.licdn.com/dms/image/D4D03AQE7I0g99vQF7A/profile-displayphoto-shrink_400_400/0/1664128016463?e=1674086400&v=beta&t=zGoZCh7OVXmwWWYeNGjNGy6C_WN8EyYaJuq8p2nNAcQ"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/leo-birnbaum-885347b0/detail/recent-activity/", "profileImg"] = "https://media-exp1.licdn.com/dms/image/C4E03AQE7yP63OXfavA/profile-displayphoto-shrink_400_400/0/1643105401117?e=1674086400&v=beta&t=8lt5v2zUGpmq279UuG5ZV122YbctFKmrXn3Rqy95bB0"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/herbertdiess/", "profileImg"] = "https://media-exp1.licdn.com/dms/image/C4D03AQGwevkEVF9SLg/profile-displayphoto-shrink_400_400/0/1604501451969?e=1674086400&v=beta&t=KfjkItv4RipG8wTO5IG7QaMFQWe3qarjOgCLSymASiU"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/mike-crawley-a3308a2/recent-activity/shares/", "profileImg"] = "https://media-exp1.licdn.com/dms/image/C5603AQHdigGQiJWq4g/profile-displayphoto-shrink_400_400/0/1516245033117?e=1674086400&v=beta&t=W4GlchB3P4xvyjnyCIT4mGrq4mTXA6eYP2FZS5z8dSY"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/miriam-teige-66117769/recent-activity/", "profileImg"] = "https://profile-images.xing.com/images/e361dbb99b1048cc5b97668087ac9b59-5/miriam-teige.256x256.jpg"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/werner-baumann/", "profileImg"] = "https://media-exp1.licdn.com/dms/image/C5603AQGI_4YXr7uMIA/profile-displayphoto-shrink_400_400/0/1631806128361?e=1674086400&v=beta&t=EjqN-uz3hJ7qBRIQVCLbxA4C8lJCpwesaTn3RR_TUWw"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/katherina-reiche/detail/recent-activity/", "profileImg"] = "https://media-exp1.licdn.com/dms/image/C4D03AQFOOt3UwR4FpQ/profile-displayphoto-shrink_400_400/0/1601888597608?e=1674086400&v=beta&t=Uvd6erXkPyYJBJoEluRZKF3fcHU7drBeCUvvwFaPUas"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/jeromepecresse/?originalSubdomain=fr", "profileImg"] = "https://media-exp1.licdn.com/dms/image/C5603AQG7UwEhvr5bxw/profile-displayphoto-shrink_400_400/0/1591286963133?e=1674086400&v=beta&t=gG_d-hk4nKan7m7M8gXBnkdXtbTFk2NclmOridFbrE0"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/marc-becker-3990826/", "profileImg"] = "https://www.wfo-helgoland.eu/2017/files/2017/08/Dr.-Marc-Becker-e1501844444352-390x390.jpg"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/richardlutzdb/", "profileImg"] = "https://media-exp1.licdn.com/dms/image/D4E03AQG6-ESIrvZGnw/profile-displayphoto-shrink_400_400/0/1667416495067?e=1674086400&v=beta&t=yWZ-GLMN7lh7Cd5BzoJAVHYK39DKDnoY1jhqdMUy-lg"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/martin-brudermueller/detail/recent-activity/", "profileImg"] = "https://media-exp1.licdn.com/dms/image/C4E03AQHjIB2XUqA9bg/profile-displayphoto-shrink_400_400/0/1616417524648?e=1674086400&v=beta&t=G7peaOsq6pl9XKOEgAeQwS8GZ6BQdBPkHdJSPQO8VEc"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/hdsohn/recent-activity/shares/", "profileImg"] = "https://media-exp1.licdn.com/dms/image/C4E03AQFLOYyqYyLN2g/profile-displayphoto-shrink_400_400/0/1604417604865?e=1674086400&v=beta&t=5hYyozi-rYn2Abt1z7AHrP-VHw4wO0bK8BGVPIkGvgI"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/davidcarrascosafrancis/recent-activity/shares/", "profileImg"] = "https://media-exp1.licdn.com/dms/image/C5103AQGi0NnyRoRJPA/profile-displayphoto-shrink_400_400/0/1517228600139?e=1674086400&v=beta&t=mQWCKWusvkyvtELcqx6otmAp0P5s7XxRj89twgUGwJc"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/juan-gutierrez-sgre/recent-activity/", "profileImg"] = "https://nawindpower.com/wp-content/uploads/2020/03/Gutierrez_J-0004-scaled.jpg"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/henrik-stiesdal-064a9374/recent-activity/", "profileImg"] = "https://upload.wikimedia.org/wikipedia/commons/9/99/Henrik_Stiesdal%2C_Siemens_Windpower_Division_CTO%2C_Press_Image_2012.jpg"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/hilde-merete-aasheim-b37b38203/recent-activity/shares/", "profileImg"] = "https://media-exp1.licdn.com/dms/image/C4E03AQHahchcmPw3pA/profile-displayphoto-shrink_400_400/0/1610534026461?e=1674086400&v=beta&t=vs0LmRvESXecSEVPGt3_aZhFSYuvuQHKVMdUVT2K8Ro"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/alistair-phillips-davies-14213871/recent-activity/", "profileImg"] = "https://media-exp1.licdn.com/dms/image/C5603AQEGqafzcqRo2Q/profile-displayphoto-shrink_400_400/0/1612302162253?e=1674086400&v=beta&t=dl1pZ2QX-Nf5h0l17nyqaIPP8tRsRPEK3YJfSwbGQck"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/annaborgvattenfall/", "profileImg"] = "https://media-exp1.licdn.com/dms/image/D4D03AQFH0lwTjUWnAw/profile-displayphoto-shrink_400_400/0/1666804754880?e=1674086400&v=beta&t=WoQB2g8S4Hk_C1xgmg-uApOgRE0vOSji8Wa9ZzhSjS0"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/giles-dickson-98607229/recent-activity/", "profileImg"] = "https://media-exp1.licdn.com/dms/image/C4E03AQGhOcNb1JtCqw/profile-displayphoto-shrink_400_400/0/1645023119636?e=1674086400&v=beta&t=McqVYoA8BJK2bXyClkuytosxfjBCjYiNCGClmj_DXUc"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/jean-bernard-levy/", "profileImg"] = "https://media-exp1.licdn.com/dms/image/C4E03AQHrXZwpUycaZg/profile-displayphoto-shrink_400_400/0/1574177430159?e=1674086400&v=beta&t=Qxn0Bsm-BoqsWHBuezA85_LFm8YgdhpUQU0od0EUMOA"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/florian-bieberbach/recent-activity/shares/", "profileImg"] = "https://media-exp1.licdn.com/dms/image/C4D03AQFc9lmuT5toVw/profile-displayphoto-shrink_400_400/0/1627920577752?e=1674086400&v=beta&t=RnClEIBVElHEjoDDIBLhqeHXUps3DLJa_Gxr-xikvfs"
-
-
-
-df['Company']  = df['action']
-
-df.loc[df.profileUrl == "https://www.linkedin.com/in/assaadrazzouk/", "Company"] = "Gurīn Energy - Renewable Energy"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/markussteilemann/", "Company"] = "Covestro - Chemical Manufacturing"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/buschroland/", "Company"] = "Siemens AG - Automation Machinery Manufacturing"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/bernardlooneybp/", "Company"] = "bp - Oil and Gas"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/ola-k%C3%A4llenius/", "Company"] = "Mercedes-Benz - Motor Vehicle Manufacturing"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/martenbunnemann/detail/recent-activity/shares/", "Company"] = "Avacon AG - Utilities"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/jocheneickholt/recent-activity/", "Company"] = "Siemens Gamesa - Renewable Energy"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/leo-birnbaum-885347b0/detail/recent-activity/", "Company"] = "E.ON - Utilities"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/herbertdiess/", "Company"] = "Volkswagen AG - Motor Vehicle Manufacturing"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/mike-crawley-a3308a2/recent-activity/shares/", "Company"] = "Northland Power Inc - Renewable Energy"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/miriam-teige-66117769/recent-activity/", "Company"] = "EnBW - Utilities"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/werner-baumann/", "Company"] = "Bayer - Chemical Manufacturing"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/katherina-reiche/detail/recent-activity/", "Company"] = "Westenergie AG - Utilities"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/jeromepecresse/?originalSubdomain=fr", "Company"] = "GE - Industrial Machinery Manufacturing"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/marc-becker-3990826/", "Company"] = "Siemens Gamesa - Renewable Energy"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/richardlutzdb/", "Company"] = "Deutsche Bahn - Transportation"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/martin-brudermueller/detail/recent-activity/", "Company"] = "BASF - Chemical Manufacturing"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/hdsohn/recent-activity/shares/", "Company"] = "WAB e.V. - Renewable Energy"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/davidcarrascosafrancis/recent-activity/shares/", "Company"] = "Saitec - Wind Electric Power Generation"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/juan-gutierrez-sgre/recent-activity/", "Company"] = "Siemens Gamesa - Renewable Energy"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/henrik-stiesdal-064a9374/recent-activity/", "Company"] = "Siemens- Renewable Energy"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/hilde-merete-aasheim-b37b38203/recent-activity/shares/", "Company"] = "Norsk Hydro - Mining"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/alistair-phillips-davies-14213871/recent-activity/", "Company"] = "SSE plc - Utilities"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/annaborgvattenfall/", "Company"] = "Vattenfall - Utilities"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/giles-dickson-98607229/recent-activity/", "Company"] = "WindEurope - Renewable Energy"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/jean-bernard-levy/", "Company"] = "EDF - Electric Power Generation"
-df.loc[df.profileUrl == "https://www.linkedin.com/in/florian-bieberbach/recent-activity/shares/", "Company"] = "Stadtwerke München GmbH - Utilities"
 
 
 
@@ -294,20 +219,20 @@ df30['commentCount'] = df30['commentCount'].astype(int)
 df30['Total_Interactions'] = df30['Total_Interactions'].astype(int)
 
 if st.button('Show Data'):
-    AgGrid(df30, height=500, fit_columns_on_grid_load=True)
+    st.write(df30)
 
 #st.write(df30)
 st.write(f'Total Activities in last 12 Months: ', df30.shape[0])
 #df5 = df['date'].last('24h')
 
-st.subheader('Total Own Posts for each CEOs from last 12 Months')
+#st.subheader('Total Own Posts for each CEOs from last 12 Months')
 
 
 
 #st.write(df30.CEO.value_counts())
 df12 = df30.loc[df30.action == "Post"]
 df12 = df12['CEO'].value_counts()
-st.bar_chart(df12)
+#st.bar_chart(df12)
 
 # date_to_monitor = st.date_input('Choose a date to see the post that created after that',value=datetime.today() - timedelta(days=1))
 # st.write(date_to_monitor)
@@ -319,15 +244,15 @@ col1, col2 = st.columns(2)
 with col1:
    st.header("Select Time Range")
    
-   number = st.number_input('Select the days you want to see the posts', min_value=1, max_value=360, value=3, step=1)
+   number = st.number_input('Select the days you want to see the posts', min_value=1, max_value=360, value=1, step=1)
    if number:
             df5 = df[df['date']>=(dt.datetime.now()-dt.timedelta(days=number))] #hours = 6,12, 24
             st.success(f'Monitor Posts from last {int(number)} Days', icon="✅")
 
 with col2:
    st.header("Select CEOs for Monitor")
-   st.warning('Please choose selection below to proceed', icon="⚠️")
-   all = st.checkbox('Select all CEOs')
+   #st.warning('Please choose selection below to proceed', icon="⚠️")
+   all = st.checkbox('Select all CEOs' ,value = True)
 
    if all:
         
@@ -341,8 +266,6 @@ with col2:
         df5= df5[df5['CEO'].isin(CEO_select)]
         
         
-
-
 
 
 #st.write('The current number is ', number)
@@ -400,42 +323,47 @@ with col2:
 st.header('')
 st.header('')
 
+############### Tab ########################
+
+
+
+
 #################### GRAPH ###############################################
 
-fig = px.bar(
+# fig = px.bar(
 
-    df5,x="Total Interactions",y="CEO",color = "Activity", orientation='h')
-
-
-fig.update_layout(showlegend=False, plot_bgcolor='rgba(0,0,0,0)', width=500)
-
-#st.plotly_chart(fig)
-#df5,x="CEO",y="Activity",color = "Activity",animation_frame="postDate", animation_group="CEO")
-#HOW TO ANIMATE PLOTLY https://www.youtube.com/watch?v=VZ_tS4F6P2A
-#st.subheader(f'Type of Outreach for each CEOs : last {int(number)} days')
-
-total = df5.groupby(['CEO','Activity']).size().unstack(fill_value=0)
-fig1 = px.bar(
-
-    total,color = "Activity")
-
-fig1.update_layout(showlegend=True, plot_bgcolor='rgba(0,0,0,0)', width=500)
-fig1.update_yaxes(visible=False, showticklabels=True)
-#st.plotly_chart(fig1)
-
-col1, col2 = st.columns(2)
-
-with col1:
-   st.subheader(f'Total Interactions: past {int(number)} days')
-   st.plotly_chart(fig)
-
-with col2:
-   st.subheader(f'Type of Outreach: past {int(number)} days')
-   st.plotly_chart(fig1)
+#     df5,x="Total Interactions",y="CEO",color = "Activity", orientation='h')
 
 
+# fig.update_layout(showlegend=False, plot_bgcolor='rgba(0,0,0,0)', width=500)
 
-st.header('')
+# #st.plotly_chart(fig)
+# #df5,x="CEO",y="Activity",color = "Activity",animation_frame="postDate", animation_group="CEO")
+# #HOW TO ANIMATE PLOTLY https://www.youtube.com/watch?v=VZ_tS4F6P2A
+# #st.subheader(f'Type of Outreach for each CEOs : last {int(number)} days')
+
+# total = df5.groupby(['CEO','Activity']).size().unstack(fill_value=0)
+# fig1 = px.bar(
+
+#     total,color = "Activity")
+
+# fig1.update_layout(showlegend=True, plot_bgcolor='rgba(0,0,0,0)', width=500)
+# fig1.update_yaxes(visible=False, showticklabels=True)
+# #st.plotly_chart(fig1)
+
+# # col1, col2 = st.columns(2)
+
+# # with col1:
+# #    st.subheader(f'Total Interactions: past {int(number)} days')
+# #    st.plotly_chart(fig)
+
+# # with col2:
+# #    st.subheader(f'Type of Outreach: past {int(number)} days')
+# #    st.plotly_chart(fig1)
+
+
+
+#st.header('')
 
 
 #defining three side-by-side columns
@@ -765,6 +693,7 @@ with tab8:
 with tab1:
    st.subheader("Posts from All Activities")
    st.info('Most recent posts appear first', icon="ℹ️")
+   df5.sort_values(['postDate'], ascending=False, inplace=True)
    num_posts_1 = df5.shape[0]
    st.metric(f'Count in last {int(number)} days: ','',num_posts_1 )
 
