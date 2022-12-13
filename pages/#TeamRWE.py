@@ -145,7 +145,7 @@ st.header('')
 st.header('')
 ################
 
-tab1, tab2 = st.tabs(["#TeamRWE", "Search for a keyowrd"])
+tab1, tab2 = st.tabs(["#TeamRWE", "Search for a Keyowrd Inside Posts"])
 
 df_all = df
 # df_renew = df.loc[df.Keyword == 'Renewable Energy']
