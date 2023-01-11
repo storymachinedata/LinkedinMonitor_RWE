@@ -805,5 +805,4 @@ with tab1:
         
         st.image('https://img.freepik.com/premium-vector/hazard-warning-attention-sign-with-exclamation-mark-symbol-white_231786-5218.jpg?w=2000', width =200)
         st.subheader(f'Oops... No  post found in last {int(number)} days.')
-####################################################
-
+##################################################
