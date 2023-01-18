@@ -1,20 +1,7 @@
-import numpy as np
-import altair as alt
 import pandas as pd
 import streamlit as st
-
-#from st_aggrid import AgGrid
-
-import plotly.express as px
-
-#import pandas_profiling
-#from streamlit_pandas_profiling import st_profile_report
-
-from datetime import datetime,timedelta
-import pytz
+from datetime import datetime, timedelta
 import re
-
-#from germansentiment import SentimentModel
 
 st.set_page_config(layout="wide")
 
@@ -27,14 +14,8 @@ import time
 col1,col2= st.columns(2)
 
 with col1:
-   #st.header("A cat")
    st.image("https://storymachine.mocoapp.com/objects/accounts/a201d12e-6005-447a-b7d4-a647e88e2a4a/logo/b562c681943219ea.png", width=200)
    
-with col2:
-   
-   st.header("Data Team Dashboard")
-
-st.sidebar.success("Choose Category")
 
 st.title('RWE: Andere CEOs Outreach Monitoring')
 
@@ -44,11 +25,7 @@ st.image(
 )
 
 
-#with st.expander('Monitoring Posts of CEOs from LinkedIn everyday'):
-st.success('Monitoring LinkedIn Activities everyday')
-
 my_bar = st.progress(0)
-
 for percent_complete in range(100):
      time.sleep(0.05)
      my_bar.progress(percent_complete + 1)
@@ -56,33 +33,14 @@ for percent_complete in range(100):
 
 
 
-
-#st.balloons()
-
-#st.header('`streamlit_pandas_profiling`')
-
-st.header('Andere CEOs Posts last 12 Months')
+#st.header('Andere CEOs Posts last 12 Months')
 
 
 
 df =pd.read_csv('https://phantombuster.s3.amazonaws.com/UhrenaxfEnY/srSVWXMBkcs3wTYIbYOPXA/AndereCEOs_outreach.csv')
-#df2 =pd.read_csv('https://phantombuster.s3.amazonaws.com/UhrenaxfEnY/Vx2c6OJZ59781jp9zKPViw/Andere_CEOs_2.csv')
-#df3 =pd.read_csv('https://phantombuster.s3.amazonaws.com/UhrenaxfEnY/JUeq71McCykmR5ZrlZTJdQ/Andere_CEOs_3.csv')
-
-#frames = [df1, df2, df3]
-
-#df = pd.concat(frames)
 
 df = df.dropna(how='any', subset=['postContent'])
-
-
 df.drop(['viewCount', 'sharedJobUrl', 'error', 'repostCount'], axis=1, inplace=True)
-
-
-#st.write(df.profileUrl.value_counts())
-
-
-
 df['CEO']  = df['action']
 
 df.loc[df.profileUrl == "https://www.linkedin.com/in/assaadrazzouk/", "CEO"] = "Assaad Razzouk"
@@ -116,36 +74,21 @@ df.loc[df.profileUrl == "https://www.linkedin.com/in/florian-bieberbach/recent-a
 
 
 def getActualDate(url):
-
     a= re.findall(r"\d{19}", url)
-
     a = int(''.join(a))
-
     a = format(a, 'b')
-
     first41chars = a[:41]
-
     ts = int(first41chars,2)
-
-    #tz = pytz.timezone('Europe/Paris')
-
     actualtime = datetime.fromtimestamp(ts/1000).strftime("%Y-%m-%d %H:%M:%S %Z")
-
     return actualtime
 
 df['postDate'] = df.postUrl.apply(getActualDate)
-
-
 df = df.dropna(how='any', subset=['postDate'])
 
 
 import datetime as dt
 
-#def datenow(date):
-     #a = re.(datetime.now() - df.postDate.days >1:)
 
-#df5= df
-#df5['date'] =  pd.to_datetime(df5['postDate'])
 df['date'] =  pd.to_datetime(df['postDate'])
 
 df['Total_Interactions'] = df['likeCount'] + df['commentCount']
@@ -216,15 +159,7 @@ df.loc[df.profileUrl == "https://www.linkedin.com/in/florian-bieberbach/recent-a
 
 
 
-
-#st.write(df.profileImg.value_counts())
-
-
-################################
-## OUT REACH ANALYSIS 
-
 mapper = {'liked':'Liked a Comment', 'likes': 'Liked','Reacted': 'Reacted this Post',
-
             'commented': 'Commented', 'replied': 'Replied',
              'reposted': 'Reposted'}
 
@@ -272,20 +207,11 @@ def rename_reactions(reactions):
 
         return 'Reposted'
 
-
-
-
     else:
 
         return reactions
 
 df['Activity'] = df.action.apply(rename_reactions)
-
-#st.write(df['Activity'].value_counts())
-#################################
-
-#st.write(df30.head())
-#AgGrid(df30, height=500, fit_columns_on_grid_load=True)
 
 df30 = df[df['date']>=(dt.datetime.now()-dt.timedelta(days=365))] #hours = 6,12, 24
 
@@ -296,21 +222,10 @@ df30['Total_Interactions'] = df30['Total_Interactions'].astype(int)
 if st.button('Show Data'):
     st.write(df30)
 
-#st.write(df30)
-st.write(f'Total Activities in last 12 Months: ', df30.shape[0])
-#df5 = df['date'].last('24h')
+#st.write(f'Total Activities in last 12 Months: {df30.shape[0]}')
 
-#st.subheader('Total Own Posts for each CEOs from last 12 Months')
-
-
-
-#st.write(df30.CEO.value_counts())
 df12 = df30.loc[df30.action == "Post"]
 df12 = df12['CEO'].value_counts()
-#st.bar_chart(df12)
-
-# date_to_monitor = st.date_input('Choose a date to see the post that created after that',value=datetime.today() - timedelta(days=1))
-# st.write(date_to_monitor)
 
 st.header('')
 
@@ -318,19 +233,16 @@ col1, col2 = st.columns(2)
 
 with col1:
    st.header("Select Time Range")
-   
    number = st.number_input('Select the days you want to see the posts', min_value=1, max_value=360, value=1, step=1)
    if number:
             df5 = df[df['date']>=(dt.datetime.now()-dt.timedelta(days=number))] #hours = 6,12, 24
             st.success(f'Monitor Posts from last {int(number)} Days', icon="✅")
 
 with col2:
-   st.header("Select CEOs for Monitor")
-   #st.warning('Please choose selection below to proceed', icon="⚠️")
+   st.header("Select CEOs to monitor")
    all = st.checkbox('Select all CEOs' ,value = True)
 
    if all:
-        
         df5= df5
         st.success('All CEOs Selected to Monitor', icon="✅")
         st.info('Untick the checbox to multiselect individual CEOs from list', icon="ℹ️")
@@ -340,24 +252,7 @@ with col2:
         CEO_select = st.multiselect('Select Individual CEOs from list', CEO_options)
         df5= df5[df5['CEO'].isin(CEO_select)]
         
-        
-
-
-#st.write('The current number is ', number)
-
-
-
-
-
-
-
-
-#cols = ['CEO','postContent','postUrl','likeCount','commentCount','Total_Interactions','postDate','profileUrl', 'imgUrl','profileImg','type','action', 'Company','Activity']
-#df5 = df5[cols]
-#df5.sort_values(['Total_Interactions'], ascending=False, inplace=True)
-
-
-#df5 = df5["imgUrl"].str.replace("<NA>","https://www.citypng.com/public/uploads/preview/download-horizontal-black-line-png-31631830482cvrhyz46le.png")
+    
 
 df5['likeCount'] = df5['likeCount'].astype(int)
 df5['commentCount'] = df5['commentCount'].astype(int)
@@ -369,23 +264,13 @@ df5['action'] = df5['action'].str.replace('Post', 'Own Post')
 
 df5 = df5.reset_index(drop=True)
 
-st.header('')
-st.header(f'Post from last {int(number)} days')
+
 
 col1, col2 = st.columns(2)
 
 with col1:
-   st.metric(f'Total Activities in last {int(number)} days: ','',df5.shape[0] )
-   if st.button(f'Show Data for past {int(number)} days'):
-        st.write(df5)
-
-
-   
-
-with col2:
    @st.cache
    def convert_df(df):
-    # IMPORTANT: Cache the conversion to prevent computation on every rerun
         return df.to_csv().encode('utf-8')
 
    csv = convert_df(df5)
@@ -398,54 +283,17 @@ with col2:
 st.header('')
 st.header('')
 
-############### Tab ########################
+#######################################
+##            OUTREACH               ##
+#######################################
 
 
 
 
-#################### GRAPH ###############################################
+st.subheader(f'Select Activity to See Posts Related with in Past {int(number)} days')
+filter_intrxn = st.number_input('Show posts with total interactions greater than:')
 
-# fig = px.bar(
-
-#     df5,x="Total Interactions",y="CEO",color = "Activity", orientation='h')
-
-
-# fig.update_layout(showlegend=False, plot_bgcolor='rgba(0,0,0,0)', width=500)
-
-# #st.plotly_chart(fig)
-# #df5,x="CEO",y="Activity",color = "Activity",animation_frame="postDate", animation_group="CEO")
-# #HOW TO ANIMATE PLOTLY https://www.youtube.com/watch?v=VZ_tS4F6P2A
-# #st.subheader(f'Type of Outreach for each CEOs : last {int(number)} days')
-
-# total = df5.groupby(['CEO','Activity']).size().unstack(fill_value=0)
-# fig1 = px.bar(
-
-#     total,color = "Activity")
-
-# fig1.update_layout(showlegend=True, plot_bgcolor='rgba(0,0,0,0)', width=500)
-# fig1.update_yaxes(visible=False, showticklabels=True)
-# #st.plotly_chart(fig1)
-
-# # col1, col2 = st.columns(2)
-
-# # with col1:
-# #    st.subheader(f'Total Interactions: past {int(number)} days')
-# #    st.plotly_chart(fig)
-
-# # with col2:
-# #    st.subheader(f'Type of Outreach: past {int(number)} days')
-# #    st.plotly_chart(fig1)
-
-
-
-#st.header('')
-
-
-#defining three side-by-side columns
-
-#col1, col2, col3 = st.columns(3)
-####################################################
-## OUTREACH
+df5 = df5[df5['Total Interactions'] > filter_intrxn]
 
 df_post = df5.loc[df5.Activity == "Post"]
 df_post = df_post.reset_index(drop=True)
@@ -463,16 +311,12 @@ df_commented = df5.loc[df5.Activity == "Commented"]
 df_commented = df_commented.reset_index(drop=True)
 
 df_replied = df5.loc[df5.Activity == "Replied"]
-df_post = df_post.reset_index(drop=True)
+df_replied = df_replied.reset_index(drop=True)
 
 df_repost = df5.loc[df5.Activity == "Reposted"]
 df_repost = df_repost.reset_index(drop=True)
 
 
-
-st.subheader(f'Select Activity to See Posts Related with in Past {int(number)} days')
-
-#tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8 = st.tabs(["Own Post 📃", "Liked a Post 👍", "Liked a Comment 🤝", "Commented 💬", "Replied 📝", "Reposted  📌", "Reacted 🫶","All Activities 🗂"])
 tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8 = st.tabs(["All Activities 🗂", "Own Post 📃", "Liked a Post 👍", "Liked a Comment 🤝", "Commented 💬", "Replied 📝", "Reposted  📌","Reacted 🫶"])
 
 with tab2:
@@ -483,24 +327,17 @@ with tab2:
 
    if  num_posts_1>0:
         
-        #splits = np.array_split(df5,5)
-        #st.image(df_CEO.profileImg[0])
         splits_1 = df_post.groupby(df_post.index // 3)
         for _, frames_1 in splits_1:
             frames_1 = frames_1.reset_index(drop=True)
-            #print(frames_1.head())
             thumbnails_1 = st.columns(frames_1.shape[0])
             for i, c in frames_1.iterrows():
                 with thumbnails_1[i]:
 
-                     
                      st.subheader(frames_1.CEO[i])
-                     #st.write('Company & Industry:  ',c['Company']) #postType
                      st.warning(c['action'])
-                        #st.write('Image from the Post  🗾')
                      if not pd.isnull(c['imgUrl']):
                         st.image(c['imgUrl']) 
-                     #st.write('Post Content 📜')
                      st.info(c['postContent'])  #postContent
                      st.write('Publish Date & Time 📆:         ',c['postDate']) #publishDate
                      st.write('Type of Post 📨:  ',c['type']) #postType
