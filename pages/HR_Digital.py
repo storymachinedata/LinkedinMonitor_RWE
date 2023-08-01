@@ -16,7 +16,7 @@ with open('style.css') as f:
 # with logo:
 # 	st.image(storymch_logo, width=200)
    
-st.markdown("<h1 style='text-align: center; color: cyan;'>Mutares Portfolio Companies LinkedIn Posts</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: cyan;'>RWE HR DIGITAL</h1>", unsafe_allow_html=True)
 
 
 
