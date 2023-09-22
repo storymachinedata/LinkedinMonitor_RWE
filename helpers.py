@@ -3,7 +3,10 @@ import streamlit as st
 from datetime import datetime
 import re
 
-
+def get_actual_date(url: str):
+    unix_timestamp = int(format(int(url.split(":")[-1]), "b")[:41], 2)
+    time_stamp = datetime.fromtimestamp(ts/1000).strftime("%Y-%m-%d %H:%M:%S %Z")
+    return time_stamp
 
 
 
