@@ -204,7 +204,7 @@ def rename_reactions(reactions):
 
         return reactions
 
-df['Activity'] = df.action.apply(rename_reactions)
+df['Activity'] =  'Own Post'    #df.action.apply(rename_reactions)
 
 #st.write(df['Activity'].value_counts())
 #################################
