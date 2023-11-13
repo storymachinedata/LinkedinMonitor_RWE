@@ -210,7 +210,8 @@ def rename_reactions(reactions):
     else:
 
         return reactions
-
+    
+df = df.dropna(how='any', subset=['action']).reset_index(drop=True)
 df['Activity'] = df.action.apply(rename_reactions)
 
 df30 = df[df['date']>=(dt.datetime.now()-dt.timedelta(days=365))] #hours = 6,12, 24

@@ -2,6 +2,7 @@ import pandas as pd
 import streamlit as st
 from datetime import datetime
 import re
+import streamlit.components.v1 as components
 
 
 
@@ -113,6 +114,9 @@ def printFunction(i, rows, dataframe):
         st.write('Likes 👍:  ',rows['likeCount']) 
         st.write('Comments 💬:  ',rows['commentCount'])
         st.write('Publish Date & Time 📆:         ',rows['postDate']) #publishDate
+    
+        
+
         with st.expander('Link to this Post 📮'):
                 st.write(rows['postUrl']) #linktoPost
         with st.expander('Link to  Profile 🔗'):
@@ -132,6 +136,7 @@ def printFunction(i, rows, dataframe):
         st.write('Comments 💬:  ',rows['commentCount']) #totInterarowstions
         #st.write('Arowstion 📌:  ',rows['arowstion']) #totInterarowstions
         st.write('Publish Date & Time 📆:         ',rows['postDate']) #publishDate
+
         with st.expander('Link to this Post 📮'):
                 st.write(rows['postUrl']) #linktoPost
         with st.expander('Link to  Profile 🔗'):
@@ -155,6 +160,23 @@ def printFunction_search(i, rows, dataframe):
         st.write('Comments 💬:  ',rows['commentCount']) #totInterarowstions
         #st.write('Arowstion 📌:  ',rows['arowstion']) #totInterarowstions
         st.write('Publish Date & Time 📆:         ',rows['postDate']) #publishDate
+        
+        url = "https://www.linkedin.com/embed/feed/update/urn:li:activity:7123603796294795266"
+        url = "https://www.linkedin.com/embed/feed/update/urn:li:activity:7124628532353187841"
+
+        #embed_code =f'<iframe src={url} height="400" width="400" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>'
+
+        embed_code =f'''<div style="position:relative;overflow:hidden;padding-top:56.25%;">
+        <iframe 
+        frameborder="0"
+        style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"
+        src={url}
+        ></iframe>
+        </div>'''
+
+
+
+        st.markdown(embed_code, unsafe_allow_html=True)
         with st.expander('Link to this Post 📮'):
                 st.write(rows['postUrl']) #linktoPost
         with st.expander('Link to  Profile 🔗'):
